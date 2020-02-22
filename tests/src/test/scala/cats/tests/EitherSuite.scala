@@ -27,7 +27,8 @@ class EitherSuite extends CatsSuite {
   checkAll("Either[Int, Int]", MonadErrorTests[Either[Int, *], Int].monadError[Int, Int, Int])
   checkAll("MonadError[Either[Int, *]]", SerializableTests.serializable(MonadError[Either[Int, *], Int]))
 
-  checkAll("Either[Int, Int] with Option", TraverseTests[Either[Int, *]].traverse[Int, Int, Int, Int, Option, Option])
+  checkAll("Either[Int, Int] with Option",
+           TraverseTests[Either[Int, *]].traverse[Int, Int, Int, Int, Int, Option, Option])
   checkAll("Traverse[Either[Int, *]", SerializableTests.serializable(Traverse[Either[Int, *]]))
 
   checkAll("Either[*, *]", BitraverseTests[Either].bitraverse[Option, Int, Int, Int, String, String, String])

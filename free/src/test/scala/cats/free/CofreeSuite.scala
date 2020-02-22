@@ -17,12 +17,12 @@ class CofreeSuite extends CatsSuite {
   checkAll("Cofree[Option, *]", ComonadTests[Cofree[Option, *]].comonad[Int, Int, Int])
   locally {
     implicit val instance: Traverse[Cofree[Option, *]] = Cofree.catsTraverseForCofree[Option]
-    checkAll("Cofree[Option, *]", TraverseTests[Cofree[Option, *]].traverse[Int, Int, Int, Int, Option, Option])
+    checkAll("Cofree[Option, *]", TraverseTests[Cofree[Option, *]].traverse[Int, Int, Int, Int, Int, Option, Option])
     checkAll("Traverse[Cofree[Option, *]]", SerializableTests.serializable(Traverse[Cofree[Option, *]]))
   }
   locally {
     implicit val instance: Reducible[Cofree[Option, *]] = Cofree.catsReducibleForCofree[Option]
-    checkAll("Cofree[Option, *]", ReducibleTests[Cofree[Option, *]].reducible[Option, Int, Int])
+    checkAll("Cofree[Option, *]", ReducibleTests[Cofree[Option, *]].reducible[Option, Int, Int, Int])
     checkAll("Reducible[Cofree[Option, *]]", SerializableTests.serializable(Reducible[Cofree[Option, *]]))
   }
   checkAll("Comonad[Cofree[Option, *]]", SerializableTests.serializable(Comonad[Cofree[Option, *]]))

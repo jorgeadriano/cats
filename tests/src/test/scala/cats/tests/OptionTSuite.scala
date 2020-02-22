@@ -144,7 +144,7 @@ class OptionTSuite extends CatsSuite {
     // F has a Foldable
     implicit val F: Foldable[ListWrapper] = ListWrapper.foldable
 
-    checkAll("OptionT[ListWrapper, Int]", FoldableTests[OptionT[ListWrapper, *]].foldable[Int, Int])
+    checkAll("OptionT[ListWrapper, Int]", FoldableTests[OptionT[ListWrapper, *]].foldable[Int, Int, Int])
     checkAll("Foldable[OptionT[ListWrapper, *]]", SerializableTests.serializable(Foldable[OptionT[ListWrapper, *]]))
   }
 
@@ -153,7 +153,7 @@ class OptionTSuite extends CatsSuite {
     implicit val F: Traverse[ListWrapper] = ListWrapper.traverse
 
     checkAll("OptionT[ListWrapper, Int] with Option",
-             TraverseTests[OptionT[ListWrapper, *]].traverse[Int, Int, Int, Int, Option, Option])
+             TraverseTests[OptionT[ListWrapper, *]].traverse[Int, Int, Int, Int, Int, Option, Option])
     checkAll("Traverse[OptionT[ListWrapper, *]]", SerializableTests.serializable(Traverse[OptionT[ListWrapper, *]]))
 
     Foldable[OptionT[ListWrapper, *]]

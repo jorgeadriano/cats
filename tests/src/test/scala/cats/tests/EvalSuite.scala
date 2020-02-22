@@ -107,7 +107,7 @@ class EvalSuite extends CatsSuite {
 
   checkAll("Bimonad[Eval]", SerializableTests.serializable(Bimonad[Eval]))
 
-  checkAll("Eval[Int]", ReducibleTests[Eval].reducible[Option, Int, Int])
+  checkAll("Eval[Int]", ReducibleTests[Eval].reducible[Option, Int, Int, Int])
   checkAll("Reducible[Eval]", SerializableTests.serializable(Reducible[Eval]))
 
   checkAll("Eval[Int]", GroupTests[Eval[Int]].group)

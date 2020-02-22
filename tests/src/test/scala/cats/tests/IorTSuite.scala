@@ -25,7 +25,7 @@ class IorTSuite extends CatsSuite {
     implicit val F: Traverse[ListWrapper] = ListWrapper.traverse
 
     checkAll("IorT[ListWrapper, Int, *]",
-             TraverseTests[IorT[ListWrapper, Int, *]].traverse[Int, Int, Int, Int, Option, Option])
+             TraverseTests[IorT[ListWrapper, Int, *]].traverse[Int, Int, Int, Int, Int, Option, Option])
     checkAll("Traverse[IorT[ListWrapper, Int, *]]", SerializableTests.serializable(Traverse[IorT[ListWrapper, Int, *]]))
   }
 
@@ -50,7 +50,7 @@ class IorTSuite extends CatsSuite {
   {
     implicit val F: Foldable[ListWrapper] = ListWrapper.foldable
 
-    checkAll("IorT[ListWrapper, Int, *]", FoldableTests[IorT[ListWrapper, Int, *]].foldable[Int, Int])
+    checkAll("IorT[ListWrapper, Int, *]", FoldableTests[IorT[ListWrapper, Int, *]].foldable[Int, Int, Int])
     checkAll("Foldable[IorT[ListWrapper, Int, *]]", SerializableTests.serializable(Foldable[IorT[ListWrapper, Int, *]]))
   }
 

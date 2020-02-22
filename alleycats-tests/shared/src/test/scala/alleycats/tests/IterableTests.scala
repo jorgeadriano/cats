@@ -23,5 +23,5 @@ class IterableTests extends AlleycatsSuite {
       .value shouldEqual (Eval.now("OK").value)
   }
 
-  checkAll("Foldable[Iterable]", FoldableTests[Iterable].foldable[Int, Int])
+  checkAll("Foldable[Iterable]", FoldableTests[Iterable].foldable[Int, Int, Int])
 }

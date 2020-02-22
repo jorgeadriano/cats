@@ -49,7 +49,7 @@ class EitherTSuite extends CatsSuite {
     implicit val F: Traverse[ListWrapper] = ListWrapper.traverse
 
     checkAll("EitherT[ListWrapper, Int, *]",
-             TraverseTests[EitherT[ListWrapper, Int, *]].traverse[Int, Int, Int, Int, Option, Option])
+             TraverseTests[EitherT[ListWrapper, Int, *]].traverse[Int, Int, Int, Int, Int, Option, Option])
     checkAll("Traverse[EitherT[ListWrapper, Int, *]]",
              SerializableTests.serializable(Traverse[EitherT[ListWrapper, Int, *]]))
     checkAll("EitherT[ListWrapper, *, *]",
@@ -117,7 +117,7 @@ class EitherTSuite extends CatsSuite {
     // if a foldable is defined
     implicit val F: Foldable[ListWrapper] = ListWrapper.foldable
 
-    checkAll("EitherT[ListWrapper, Int, *]", FoldableTests[EitherT[ListWrapper, Int, *]].foldable[Int, Int])
+    checkAll("EitherT[ListWrapper, Int, *]", FoldableTests[EitherT[ListWrapper, Int, *]].foldable[Int, Int, Int])
     checkAll("Foldable[EitherT[ListWrapper, Int, *]]",
              SerializableTests.serializable(Foldable[EitherT[ListWrapper, Int, *]]))
   }

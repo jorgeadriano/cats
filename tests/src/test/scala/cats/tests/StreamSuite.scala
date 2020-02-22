@@ -29,7 +29,7 @@ class StreamSuite extends CatsSuite {
   checkAll("Stream[Int]", MonadTests[Stream].monad[Int, Int, Int])
   checkAll("Monad[Stream]", SerializableTests.serializable(Monad[Stream]))
 
-  checkAll("Stream[Int] with Option", TraverseTests[Stream].traverse[Int, Int, Int, Set[Int], Option, Option])
+  checkAll("Stream[Int] with Option", TraverseTests[Stream].traverse[Int, Int, Int, Int, Set[Int], Option, Option])
   checkAll("Traverse[Stream]", SerializableTests.serializable(Traverse[Stream]))
 
   checkAll("Stream[Int]", TraverseFilterTests[Stream].traverseFilter[Int, Int, Int])

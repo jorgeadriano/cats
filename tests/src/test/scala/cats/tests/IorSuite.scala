@@ -27,7 +27,8 @@ class IorSuite extends CatsSuite {
   checkAll("Ior[String, Int]", MonadErrorTests[Ior[String, *], String].monadError[Int, Int, Int])
   checkAll("MonadError[SIor[String, *]]", SerializableTests.serializable(MonadError[Ior[String, *], String]))
 
-  checkAll("Ior[String, Int] with Option", TraverseTests[Ior[String, *]].traverse[Int, Int, Int, Int, Option, Option])
+  checkAll("Ior[String, Int] with Option",
+           TraverseTests[Ior[String, *]].traverse[Int, Int, Int, Int, Int, Option, Option])
   checkAll("Traverse[Ior[String, *]]", SerializableTests.serializable(Traverse[Ior[String, *]]))
   checkAll("Ior[*, *]", BifunctorTests[Ior].bifunctor[Int, Int, Int, String, String, String])
 

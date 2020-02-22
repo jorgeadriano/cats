@@ -11,23 +11,24 @@ import org.scalacheck.Prop.forAll
 trait ReducibleTests[F[_]] extends FoldableTests[F] {
   def laws: ReducibleLaws[F]
 
-  def reducible[G[_]: Applicative, A: Arbitrary, B: Arbitrary](implicit
-                                                               ArbFA: Arbitrary[F[A]],
-                                                               ArbFB: Arbitrary[F[B]],
-                                                               ArbFGA: Arbitrary[F[G[A]]],
-                                                               ArbGB: Arbitrary[G[B]],
-                                                               CogenA: Cogen[A],
-                                                               CogenB: Cogen[B],
-                                                               EqG: Eq[G[Unit]],
-                                                               EqA: Eq[A],
-                                                               EqB: Eq[B],
-                                                               EqFA: Eq[F[A]],
-                                                               EqOptionA: Eq[Option[A]],
-                                                               MonoidA: CommutativeMonoid[A],
-                                                               MonoidB: CommutativeMonoid[B]): RuleSet =
+  def reducible[G[_]: Applicative, A: Arbitrary, B: Arbitrary, C: Order](implicit
+                                                                         ArbFA: Arbitrary[F[A]],
+                                                                         ArbFB: Arbitrary[F[B]],
+                                                                         ArbFC: Arbitrary[F[C]],
+                                                                         ArbFGA: Arbitrary[F[G[A]]],
+                                                                         ArbGB: Arbitrary[G[B]],
+                                                                         CogenA: Cogen[A],
+                                                                         CogenB: Cogen[B],
+                                                                         EqG: Eq[G[Unit]],
+                                                                         EqA: Eq[A],
+                                                                         EqB: Eq[B],
+                                                                         EqFA: Eq[F[A]],
+                                                                         EqOptionA: Eq[Option[A]],
+                                                                         MonoidA: CommutativeMonoid[A],
+                                                                         MonoidB: CommutativeMonoid[B]): RuleSet =
     new DefaultRuleSet(
       name = "reducible",
-      parent = Some(foldable[A, B]),
+      parent = Some(foldable[A, B, C]),
       "reduceLeftTo consistent with reduceMap" -> forAll(laws.reduceLeftToConsistentWithReduceMap[A, B] _),
       "reduceRightTo consistent with reduceMap" -> forAll(laws.reduceRightToConsistentWithReduceMap[A, B] _),
       "reduceRightTo consistent with reduceRightToOption" ->

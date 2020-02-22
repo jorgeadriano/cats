@@ -28,7 +28,7 @@ class ConstSuite extends CatsSuite {
   checkAll("Applicative[Const[String, *]]", SerializableTests.serializable(Applicative[Const[String, *]]))
 
   checkAll("Const[String, Int] with Option",
-           TraverseTests[Const[String, *]].traverse[Int, Int, Int, Int, Option, Option])
+           TraverseTests[Const[String, *]].traverse[Int, Int, Int, Int, Int, Option, Option])
   checkAll("Traverse[Const[String, *]]", SerializableTests.serializable(Traverse[Const[String, *]]))
 
   checkAll("Const[String, Int]", TraverseFilterTests[Const[String, *]].traverseFilter[Int, Int, Int])

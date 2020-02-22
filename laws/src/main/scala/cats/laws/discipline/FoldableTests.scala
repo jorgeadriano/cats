@@ -11,20 +11,21 @@ import arbitrary.catsLawsArbitraryForPartialFunction
 trait FoldableTests[F[_]] extends UnorderedFoldableTests[F] {
   def laws: FoldableLaws[F]
 
-  def foldable[A: Arbitrary, B: Arbitrary](implicit
-                                           ArbFA: Arbitrary[F[A]],
-                                           A: CommutativeMonoid[A],
-                                           B: CommutativeMonoid[B],
-                                           CogenA: Cogen[A],
-                                           CogenB: Cogen[B],
-                                           EqA: Eq[A],
-                                           EqFA: Eq[F[A]],
-                                           EqB: Eq[B],
-                                           EqOptionB: Eq[Option[B]],
-                                           EqOptionA: Eq[Option[A]]): RuleSet =
+  def foldable[A: Arbitrary, B: Arbitrary, C: Order](implicit
+                                                     ArbFA: Arbitrary[F[A]],
+                                                     ArbFC: Arbitrary[F[C]],
+                                                     A: CommutativeMonoid[A],
+                                                     B: CommutativeMonoid[B],
+                                                     CogenA: Cogen[A],
+                                                     CogenB: Cogen[B],
+                                                     EqA: Eq[A],
+                                                     EqFA: Eq[F[A]],
+                                                     EqB: Eq[B],
+                                                     EqOptionB: Eq[Option[B]],
+                                                     EqOptionA: Eq[Option[A]]): RuleSet =
     new DefaultRuleSet(
       name = "foldable",
-      parent = Some(unorderedFoldable[A, B]),
+      parent = Some(unorderedFoldable[A, B, C]),
       "foldLeft consistent with foldMap" -> forAll(laws.leftFoldConsistentWithFoldMap[A, B] _),
       "foldRight consistent with foldMap" -> forAll(laws.rightFoldConsistentWithFoldMap[A, B] _),
       "foldRight is lazy" -> forAll(laws.foldRightLazy[A] _),
