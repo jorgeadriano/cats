@@ -44,7 +44,7 @@ sealed abstract class UnorderedFoldableSuite[F[_]](name: String)(implicit ArbFSt
       fa.count(Function.const(true)) should ===(fa.size)
     }
   }
-  checkAll("F[Int]", UnorderedFoldableTests[F](instance).unorderedFoldable[Int, Int])
+  checkAll("F[Int]", UnorderedFoldableTests[F](instance).unorderedFoldable[Int, Int, Int])
 }
 
 final class UnorderedFoldableSetSuite extends UnorderedFoldableSuite[Set]("set") {

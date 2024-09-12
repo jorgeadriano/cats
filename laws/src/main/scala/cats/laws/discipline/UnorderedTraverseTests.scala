@@ -9,8 +9,9 @@ import cats.kernel.CommutativeMonoid
 trait UnorderedTraverseTests[F[_]] extends UnorderedFoldableTests[F] {
   def laws: UnorderedTraverseLaws[F]
 
-  def unorderedTraverse[A: Arbitrary, B: Arbitrary, C: Arbitrary, X[_]: CommutativeApplicative, Y[_]: CommutativeApplicative](
+  def unorderedTraverse[A: Arbitrary, B: Arbitrary, C: Arbitrary, D: Order, X[_]: CommutativeApplicative, Y[_]: CommutativeApplicative](
     implicit ArbFA: Arbitrary[F[A]],
+    ArbFD: Arbitrary[F[D]],
     ArbFXB: Arbitrary[F[X[B]]],
     ArbXB: Arbitrary[X[B]],
     ArbYB: Arbitrary[Y[B]],
@@ -32,7 +33,7 @@ trait UnorderedTraverseTests[F[_]] extends UnorderedFoldableTests[F] {
     }
     new DefaultRuleSet(
       name = "unorderedTraverse",
-      parent = Some(unorderedFoldable[A, B]),
+      parent = Some(unorderedFoldable[A, B, D]),
       "unordered traverse sequential composition" -> forAll(
         laws.unorderedTraverseSequentialComposition[A, B, C, X, Y] _
       ),

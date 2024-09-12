@@ -26,10 +26,10 @@ class NonEmptyListSuite extends CatsSuite {
   checkAll("NonEmptyList[Int]", OrderTests[NonEmptyList[Int]].order)
 
   checkAll("NonEmptyList[Int] with Option",
-           NonEmptyTraverseTests[NonEmptyList].nonEmptyTraverse[Option, Int, Int, Int, Int, Option, Option])
+           NonEmptyTraverseTests[NonEmptyList].nonEmptyTraverse[Option, Int, Int, Int, Int, Int, Option, Option])
   checkAll("NonEmptyTraverse[NonEmptyList[A]]", SerializableTests.serializable(NonEmptyTraverse[NonEmptyList]))
 
-  checkAll("NonEmptyList[Int]", ReducibleTests[NonEmptyList].reducible[Option, Int, Int])
+  checkAll("NonEmptyList[Int]", ReducibleTests[NonEmptyList].reducible[Option, Int, Int, Int])
   checkAll("Reducible[NonEmptyList]", SerializableTests.serializable(Reducible[NonEmptyList]))
 
   checkAll("NonEmptyList[Int]", SemigroupKTests[NonEmptyList].semigroupK[Int])

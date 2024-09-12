@@ -79,7 +79,7 @@ class IdTSuite extends CatsSuite {
   {
     implicit val F: Foldable[ListWrapper] = ListWrapper.foldable
 
-    checkAll("IdT[ListWrapper, Int]", FoldableTests[IdT[ListWrapper, *]].foldable[Int, Int])
+    checkAll("IdT[ListWrapper, Int]", FoldableTests[IdT[ListWrapper, *]].foldable[Int, Int, Int])
     checkAll("Foldable[IdT[ListWrapper, *]]", SerializableTests.serializable(Foldable[IdT[ListWrapper, *]]))
   }
 
@@ -87,15 +87,17 @@ class IdTSuite extends CatsSuite {
     implicit val F: Traverse[ListWrapper] = ListWrapper.traverse
 
     checkAll("IdT[ListWrapper, Int] with Option",
-             TraverseTests[IdT[ListWrapper, *]].traverse[Int, Int, Int, Int, Option, Option])
+             TraverseTests[IdT[ListWrapper, *]].traverse[Int, Int, Int, Int, Int, Option, Option])
     checkAll("Traverse[IdT[ListWrapper, *]]", SerializableTests.serializable(Traverse[IdT[ListWrapper, *]]))
   }
 
   {
     implicit val F: Traverse[NonEmptyList] = NonEmptyList.catsDataInstancesForNonEmptyList
 
-    checkAll("IdT[NonEmptyList, Int]",
-             NonEmptyTraverseTests[IdT[NonEmptyList, *]].nonEmptyTraverse[Option, Int, Int, Int, Int, Option, Option])
+    checkAll(
+      "IdT[NonEmptyList, Int]",
+      NonEmptyTraverseTests[IdT[NonEmptyList, *]].nonEmptyTraverse[Option, Int, Int, Int, Int, Int, Option, Option]
+    )
     checkAll("NonEmptyTraverse[IdT[NonEmptyList, *]]",
              SerializableTests.serializable(NonEmptyTraverse[IdT[NonEmptyList, *]]))
   }

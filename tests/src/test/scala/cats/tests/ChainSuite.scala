@@ -20,7 +20,7 @@ class ChainSuite extends CatsSuite {
   checkAll("Chain[Int]", AlternativeTests[Chain].alternative[Int, Int, Int])
   checkAll("Alternative[Chain]", SerializableTests.serializable(Alternative[Chain]))
 
-  checkAll("Chain[Int] with Option", TraverseTests[Chain].traverse[Int, Int, Int, Set[Int], Option, Option])
+  checkAll("Chain[Int] with Option", TraverseTests[Chain].traverse[Int, Int, Int, Int, Set[Int], Option, Option])
   checkAll("Traverse[Chain]", SerializableTests.serializable(Traverse[Chain]))
 
   checkAll("Chain[Int]", MonadTests[Chain].monad[Int, Int, Int])

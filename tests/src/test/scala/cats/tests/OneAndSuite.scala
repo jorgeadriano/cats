@@ -14,7 +14,7 @@ class OneAndSuite extends CatsSuite {
   {
     implicit val traverse: Traverse[OneAnd[ListWrapper, *]] = OneAnd.catsDataTraverseForOneAnd(ListWrapper.traverse)
     checkAll("OneAnd[ListWrapper, Int] with Option",
-             TraverseTests[OneAnd[ListWrapper, *]].traverse[Int, Int, Int, Int, Option, Option])
+             TraverseTests[OneAnd[ListWrapper, *]].traverse[Int, Int, Int, Int, Int, Option, Option])
     checkAll("Traverse[OneAnd[ListWrapper, A]]", SerializableTests.serializable(Traverse[OneAnd[ListWrapper, *]]))
   }
 
@@ -49,7 +49,7 @@ class OneAndSuite extends CatsSuite {
 
   {
     implicit val foldable: Foldable[ListWrapper] = ListWrapper.foldable
-    checkAll("OneAnd[ListWrapper, Int]", FoldableTests[OneAnd[ListWrapper, *]].foldable[Int, Int])
+    checkAll("OneAnd[ListWrapper, Int]", FoldableTests[OneAnd[ListWrapper, *]].foldable[Int, Int, Int])
     checkAll("Foldable[OneAnd[ListWrapper, A]]", SerializableTests.serializable(Foldable[OneAnd[ListWrapper, *]]))
   }
 

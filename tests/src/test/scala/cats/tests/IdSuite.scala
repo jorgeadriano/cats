@@ -13,9 +13,9 @@ class IdSuite extends CatsSuite {
   checkAll("Id[Int]", CommutativeMonadTests[Id].commutativeMonad[Int, Int, Int])
   checkAll("CommutativeMonad[Id]", SerializableTests.serializable(CommutativeMonad[Id]))
 
-  checkAll("Id[Int]", TraverseTests[Id].traverse[Int, Int, Int, Int, Option, Option])
+  checkAll("Id[Int]", TraverseTests[Id].traverse[Int, Int, Int, Int, Int, Option, Option])
   checkAll("Traverse[Id]", SerializableTests.serializable(Traverse[Id]))
 
-  checkAll("Id[Int]", ReducibleTests[Id].reducible[Option, Int, Int])
+  checkAll("Id[Int]", ReducibleTests[Id].reducible[Option, Int, Int, Int])
   checkAll("Reducible[Id]", SerializableTests.serializable(Reducible[Id]))
 }

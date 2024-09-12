@@ -96,7 +96,7 @@ class Tuple2KSuite extends CatsSuite {
   {
     implicit val foldable: Foldable[ListWrapper] = ListWrapper.foldable
     checkAll("Tuple2K[ListWrapper, ListWrapper, *]",
-             FoldableTests[Tuple2K[ListWrapper, ListWrapper, *]].foldable[Int, Int])
+             FoldableTests[Tuple2K[ListWrapper, ListWrapper, *]].foldable[Int, Int, Int])
     checkAll("Foldable[Tuple2K[ListWrapper, ListWrapper, *]]",
              SerializableTests.serializable(Foldable[Tuple2K[ListWrapper, ListWrapper, *]]))
   }
@@ -104,7 +104,7 @@ class Tuple2KSuite extends CatsSuite {
   {
     implicit val traverse: Traverse[ListWrapper] = ListWrapper.traverse
     checkAll("Tuple2K[ListWrapper, ListWrapper, *]",
-             TraverseTests[Tuple2K[ListWrapper, ListWrapper, *]].traverse[Int, Int, Int, Int, Option, Option])
+             TraverseTests[Tuple2K[ListWrapper, ListWrapper, *]].traverse[Int, Int, Int, Int, Int, Option, Option])
     checkAll("Traverse[Tuple2K[ListWrapper, ListWrapper, *]]",
              SerializableTests.serializable(Traverse[Tuple2K[ListWrapper, ListWrapper, *]]))
   }

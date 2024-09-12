@@ -20,7 +20,7 @@ class TrySuite extends CatsSuite {
   checkAll("Try with Throwable", MonadErrorTests[Try, Throwable].monadError[Int, Int, Int])
   checkAll("MonadError[Try, Throwable]", SerializableTests.serializable(MonadError[Try, Throwable]))
 
-  checkAll("Try[Int] with Option", TraverseTests[Try].traverse[Int, Int, Int, Int, Option, Option])
+  checkAll("Try[Int] with Option", TraverseTests[Try].traverse[Int, Int, Int, Int, Int, Option, Option])
   checkAll("Traverse[Try]", SerializableTests.serializable(Traverse[Try]))
 
   checkAll("Try", MonadTests[Try].monad[Int, Int, Int])

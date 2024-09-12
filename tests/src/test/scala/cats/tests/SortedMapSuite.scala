@@ -27,7 +27,7 @@ class SortedMapSuite extends CatsSuite {
   checkAll("FlatMap[SortedMap[Int, *]]", SerializableTests.serializable(FlatMap[SortedMap[Int, *]]))
 
   checkAll("SortedMap[Int, Int] with Option",
-           TraverseTests[SortedMap[Int, *]].traverse[Int, Int, Int, Int, Option, Option])
+           TraverseTests[SortedMap[Int, *]].traverse[Int, Int, Int, Int, Int, Option, Option])
   checkAll("Traverse[SortedMap[Int, *]]", SerializableTests.serializable(Traverse[SortedMap[Int, *]]))
 
   checkAll("SortedMap[Int, Int]", TraverseFilterTests[SortedMap[Int, *]].traverseFilter[Int, Int, Int])

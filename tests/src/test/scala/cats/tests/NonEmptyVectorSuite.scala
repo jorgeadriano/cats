@@ -29,10 +29,10 @@ class NonEmptyVectorSuite extends CatsSuite {
   checkAll("NonEmptyVector[Int]", EqTests[NonEmptyVector[Int]].eqv)
 
   checkAll("NonEmptyVector[Int] with Option",
-           NonEmptyTraverseTests[NonEmptyVector].nonEmptyTraverse[Option, Int, Int, Int, Int, Option, Option])
+           NonEmptyTraverseTests[NonEmptyVector].nonEmptyTraverse[Option, Int, Int, Int, Int, Int, Option, Option])
   checkAll("NonEmptyTraverse[NonEmptyVector[A]]", SerializableTests.serializable(NonEmptyTraverse[NonEmptyVector]))
 
-  checkAll("NonEmptyVector[Int]", ReducibleTests[NonEmptyVector].reducible[Option, Int, Int])
+  checkAll("NonEmptyVector[Int]", ReducibleTests[NonEmptyVector].reducible[Option, Int, Int, Int])
   checkAll("Reducible[NonEmptyVector]", SerializableTests.serializable(Reducible[NonEmptyVector]))
 
   // Test instances that have more general constraints
@@ -42,7 +42,7 @@ class NonEmptyVectorSuite extends CatsSuite {
   checkAll("SemigroupK[NonEmptyVector]", SerializableTests.serializable(SemigroupK[NonEmptyVector]))
   checkAll("Semigroup[NonEmptyVector[Int]]", SerializableTests.serializable(Semigroup[NonEmptyVector[Int]]))
 
-  checkAll("NonEmptyVector[Int]", FoldableTests[NonEmptyVector].foldable[Int, Int])
+  checkAll("NonEmptyVector[Int]", FoldableTests[NonEmptyVector].foldable[Int, Int, Int])
   checkAll("Foldable[NonEmptyVector]", SerializableTests.serializable(Foldable[NonEmptyVector]))
 
   checkAll("NonEmptyVector[Int]", AlignTests[NonEmptyVector].align[Int, Int, Int, Int])

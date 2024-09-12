@@ -2,16 +2,17 @@ package cats.laws.discipline
 
 import org.scalacheck.{Arbitrary, Cogen, Prop}
 import Prop.forAll
-import cats.kernel.CommutativeMonoid
+import cats.kernel.{CommutativeMonoid, Order}
 import cats.{Applicative, CommutativeApplicative, Eq, NonEmptyTraverse}
 import cats.laws.NonEmptyTraverseLaws
 
 trait NonEmptyTraverseTests[F[_]] extends TraverseTests[F] with ReducibleTests[F] {
   def laws: NonEmptyTraverseLaws[F]
 
-  def nonEmptyTraverse[G[_]: Applicative, A: Arbitrary, B: Arbitrary, C: Arbitrary, M: Arbitrary, X[_], Y[_]](
+  def nonEmptyTraverse[G[_]: Applicative, A: Arbitrary, B: Arbitrary, C: Arbitrary, D: Order, M: Arbitrary, X[_], Y[_]](
     implicit
     ArbFA: Arbitrary[F[A]],
+    ArbFD: Arbitrary[F[D]],
     ArbXB: Arbitrary[X[B]],
     ArbYB: Arbitrary[Y[B]],
     ArbYC: Arbitrary[Y[C]],
@@ -52,7 +53,7 @@ trait NonEmptyTraverseTests[F[_]] extends TraverseTests[F] with ReducibleTests[F
     new RuleSet {
       def name: String = "nonEmptyTraverse"
       def bases: Seq[(String, RuleSet)] = Nil
-      def parents: Seq[RuleSet] = Seq(traverse[A, B, C, M, X, Y], reducible[G, A, B])
+      def parents: Seq[RuleSet] = Seq(traverse[A, B, C, D, M, X, Y], reducible[G, A, B, D])
       def props: Seq[(String, Prop)] = Seq(
         "nonEmptyTraverse identity" -> forAll(laws.nonEmptyTraverseIdentity[A, C] _),
         "nonEmptyTraverse sequential composition" -> forAll(

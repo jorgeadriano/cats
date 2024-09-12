@@ -30,13 +30,13 @@ class FreeSuite extends CatsSuite {
   locally {
     implicit val instance: Foldable[Free[Option, *]] = Free.catsFreeFoldableForFree[Option]
 
-    checkAll("Free[Option, *]", FoldableTests[Free[Option, *]].foldable[Int, Int])
+    checkAll("Free[Option, *]", FoldableTests[Free[Option, *]].foldable[Int, Int, Int])
     checkAll("Foldable[Free[Option,*]]", SerializableTests.serializable(Foldable[Free[Option, *]]))
   }
 
   locally {
     implicit val instance: Traverse[Free[Option, *]] = Free.catsFreeTraverseForFree[Option]
-    checkAll("Free[Option,*]", TraverseTests[Free[Option, *]].traverse[Int, Int, Int, Int, Option, Option])
+    checkAll("Free[Option,*]", TraverseTests[Free[Option, *]].traverse[Int, Int, Int, Int, Int, Option, Option])
     checkAll("Traverse[Free[Option,*]]", SerializableTests.serializable(Traverse[Free[Option, *]]))
   }
 

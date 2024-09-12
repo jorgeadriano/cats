@@ -20,7 +20,7 @@ class ArraySeqSuite extends CatsSuite {
   checkAll("ArraySeq[Int]", MonoidKTests[ArraySeq].monoidK[Int])
   checkAll("MonoidK[ArraySeq]", SerializableTests.serializable(MonoidK[ArraySeq]))
 
-  checkAll("ArraySeq[Int] with Option", TraverseTests[ArraySeq].traverse[Int, Int, Int, Set[Int], Option, Option])
+  checkAll("ArraySeq[Int] with Option", TraverseTests[ArraySeq].traverse[Int, Int, Int, Int, Set[Int], Option, Option])
   checkAll("Traverse[ArraySeq]", SerializableTests.serializable(Traverse[ArraySeq]))
 
   checkAll("ArraySeq[Int]", TraverseFilterTests[ArraySeq].traverseFilter[Int, Int, Int])

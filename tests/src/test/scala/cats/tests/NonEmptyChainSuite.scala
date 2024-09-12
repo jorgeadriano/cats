@@ -11,7 +11,7 @@ class NonEmptyChainSuite extends CatsSuite {
   checkAll("SemigroupK[NonEmptyChain]", SerializableTests.serializable(SemigroupK[NonEmptyChain]))
 
   checkAll("NonEmptyChain[Int] with Option",
-           NonEmptyTraverseTests[NonEmptyChain].nonEmptyTraverse[Option, Int, Int, Int, Int, Option, Option])
+           NonEmptyTraverseTests[NonEmptyChain].nonEmptyTraverse[Option, Int, Int, Int, Int, Int, Option, Option])
   checkAll("NonEmptyTraverse[NonEmptyChain]", SerializableTests.serializable(Traverse[NonEmptyChain]))
 
   checkAll("NonEmptyChain[Int]", BimonadTests[NonEmptyChain].bimonad[Int, Int, Int])

@@ -171,7 +171,7 @@ class NestedSuite extends CatsSuite {
   {
     // Foldable composition
     implicit val instance: Foldable[ListWrapper] = ListWrapper.foldable
-    checkAll("Nested[List, ListWrapper, *]", FoldableTests[Nested[List, ListWrapper, *]].foldable[Int, Int])
+    checkAll("Nested[List, ListWrapper, *]", FoldableTests[Nested[List, ListWrapper, *]].foldable[Int, Int, Int])
     checkAll("Foldable[Nested[List, ListWrapper, *]]",
              SerializableTests.serializable(Foldable[Nested[List, ListWrapper, *]]))
   }
@@ -180,7 +180,7 @@ class NestedSuite extends CatsSuite {
     // Traverse composition
     implicit val instance: Traverse[ListWrapper] = ListWrapper.traverse
     checkAll("Nested[List, ListWrapper, *]",
-             TraverseTests[Nested[List, ListWrapper, *]].traverse[Int, Int, Int, Set[Int], Option, Option])
+             TraverseTests[Nested[List, ListWrapper, *]].traverse[Int, Int, Int, Int, Set[Int], Option, Option])
     checkAll("Traverse[Nested[List, ListWrapper, *]]",
              SerializableTests.serializable(Traverse[Nested[List, ListWrapper, *]]))
   }
@@ -189,7 +189,7 @@ class NestedSuite extends CatsSuite {
     // Reducible composition
     implicit val instance: Foldable[ListWrapper] = ListWrapper.foldable
     checkAll("Nested[NonEmptyList, OneAnd[ListWrapper, *], *]",
-             ReducibleTests[Nested[NonEmptyList, OneAnd[ListWrapper, *], *]].reducible[Option, Int, Int])
+             ReducibleTests[Nested[NonEmptyList, OneAnd[ListWrapper, *], *]].reducible[Option, Int, Int, Int])
     checkAll("Reducible[Nested[NonEmptyList, OneAnd[ListWrapper, *], *]]",
              SerializableTests.serializable(Reducible[Nested[NonEmptyList, OneAnd[ListWrapper, *], *]]))
   }
@@ -199,7 +199,7 @@ class NestedSuite extends CatsSuite {
     checkAll(
       "Nested[NonEmptyList, NonEmptyVector, *]",
       NonEmptyTraverseTests[Nested[NonEmptyList, NonEmptyVector, *]]
-        .nonEmptyTraverse[Option, Int, Int, Int, Int, Option, Option]
+        .nonEmptyTraverse[Option, Int, Int, Int, Int, Int, Option, Option]
     )
     checkAll("NonEmptyTraverse[Nested[NonEmptyList, NonEmptyVector, *]]",
              SerializableTests.serializable(NonEmptyTraverse[Nested[NonEmptyList, NonEmptyVector, *]]))

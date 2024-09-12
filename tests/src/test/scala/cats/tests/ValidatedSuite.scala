@@ -29,7 +29,7 @@ class ValidatedSuite extends CatsSuite {
            SerializableTests.serializable(ApplicativeError[Validated[String, *], String]))
 
   checkAll("Validated[String, Int] with Option",
-           TraverseTests[Validated[String, *]].traverse[Int, Int, Int, Int, Option, Option])
+           TraverseTests[Validated[String, *]].traverse[Int, Int, Int, Int, Int, Option, Option])
   checkAll("Traverse[Validated[String, *]]", SerializableTests.serializable(Traverse[Validated[String, *]]))
 
   checkAll("Validated[String, Int]", OrderTests[Validated[String, Int]].order)

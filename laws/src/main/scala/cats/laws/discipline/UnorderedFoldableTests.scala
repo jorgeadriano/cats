@@ -11,15 +11,16 @@ import cats.instances.boolean._
 trait UnorderedFoldableTests[F[_]] extends Laws {
   def laws: UnorderedFoldableLaws[F]
 
-  def unorderedFoldable[A: Arbitrary, B: Arbitrary](implicit
-                                                    ArbFA: Arbitrary[F[A]],
-                                                    ArbF: Arbitrary[A => B],
-                                                    CogenA: Cogen[A],
-                                                    A: CommutativeMonoid[A],
-                                                    B: CommutativeMonoid[B],
-                                                    EqFA: Eq[A],
-                                                    EqFB: Eq[B],
-                                                    EqOptionA: Eq[Option[A]]): RuleSet =
+  def unorderedFoldable[A: Arbitrary, B: Arbitrary, C: Order](implicit
+                                                              ArbFA: Arbitrary[F[A]],
+                                                              ArbFC: Arbitrary[F[C]],
+                                                              ArbF: Arbitrary[A => B],
+                                                              CogenA: Cogen[A],
+                                                              A: CommutativeMonoid[A],
+                                                              B: CommutativeMonoid[B],
+                                                              EqFA: Eq[A],
+                                                              EqFB: Eq[B],
+                                                              EqOptionA: Eq[Option[A]]): RuleSet =
     new DefaultRuleSet(
       name = "unorderedFoldable",
       parent = None,
@@ -31,7 +32,11 @@ trait UnorderedFoldableTests[F[_]] extends Laws {
       "forall true if empty" -> forAll(laws.forallEmpty[A] _),
       "nonEmpty reference" -> forAll(laws.nonEmptyRef[A] _),
       "exists is lazy" -> forAll(laws.existsLazy[A] _),
-      "forall is lazy" -> forAll(laws.forallLazy[A] _)
+      "forall is lazy" -> forAll(laws.forallLazy[A] _),
+      "minimumOption is minimal" -> forAll(laws.minimumOptionIsMinimal[C] _),
+      "minimumOption is contained" -> forAll(laws.minimumOptionIsContained[C] _),
+      "maximumOption is maximal" -> forAll(laws.maximumOptionIsMaximal[C] _),
+      "maximumOption is contained" -> forAll(laws.maximumOptionIsContained[C] _)
     )
 }
 

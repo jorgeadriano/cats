@@ -14,7 +14,7 @@ class NonEmptySetSuite extends CatsSuite {
   checkAll("NonEmptySet[Int]", SemigroupKTests[NonEmptySet].semigroupK[Int])
   checkAll("SemigroupK[NonEmptySet[A]]", SerializableTests.serializable(SemigroupK[NonEmptySet]))
 
-  checkAll("NonEmptySet[Int]", ReducibleTests[NonEmptySet].reducible[Option, Int, Int])
+  checkAll("NonEmptySet[Int]", ReducibleTests[NonEmptySet].reducible[Option, Int, Int, Int])
   checkAll("Reducible[NonEmptySet]", SerializableTests.serializable(Reducible[NonEmptySet]))
 
   checkAll("NonEmptySet[String]", SemilatticeTests[NonEmptySet[String]].band)

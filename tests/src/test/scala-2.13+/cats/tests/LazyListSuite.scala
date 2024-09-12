@@ -29,7 +29,7 @@ class LazyListSuite extends CatsSuite {
   checkAll("LazyList[Int]", MonadTests[LazyList].monad[Int, Int, Int])
   checkAll("Monad[LazyList]", SerializableTests.serializable(Monad[LazyList]))
 
-  checkAll("LazyList[Int] with Option", TraverseTests[LazyList].traverse[Int, Int, Int, Set[Int], Option, Option])
+  checkAll("LazyList[Int] with Option", TraverseTests[LazyList].traverse[Int, Int, Int, Int, Set[Int], Option, Option])
   checkAll("Traverse[LazyList]", SerializableTests.serializable(Traverse[LazyList]))
 
   checkAll("LazyList[Int]", TraverseFilterTests[LazyList].traverseFilter[Int, Int, Int])

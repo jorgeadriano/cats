@@ -13,7 +13,7 @@ class NonEmptyMapSuite extends CatsSuite {
   checkAll("NonEmptyMap[String, Int]", SemigroupKTests[NonEmptyMap[String, *]].semigroupK[Int])
   checkAll(
     "NonEmptyMap[String, Int]",
-    NonEmptyTraverseTests[NonEmptyMap[String, *]].nonEmptyTraverse[Option, Int, Int, Double, Int, Option, Option]
+    NonEmptyTraverseTests[NonEmptyMap[String, *]].nonEmptyTraverse[Option, Int, Int, Int, Double, Int, Option, Option]
   )
   checkAll("NonEmptyMap[String, Int]", BandTests[NonEmptyMap[String, Int]].band)
   checkAll("NonEmptyMap[String, Int]", EqTests[NonEmptyMap[String, Int]].eqv)

@@ -450,7 +450,7 @@ class WriterTSuite extends CatsSuite {
     Foldable[WriterT[Const[String, *], ListWrapper[Int], *]]
 
     checkAll("WriterT[Const[String, *], ListWrapper[Int], *]",
-             FoldableTests[WriterT[Const[String, *], ListWrapper[Int], *]].foldable[Int, Int])
+             FoldableTests[WriterT[Const[String, *], ListWrapper[Int], *]].foldable[Int, Int, Int])
     checkAll("Foldable[WriterT[Const[String, *], ListWrapper[Int], *]]",
              SerializableTests.serializable(Foldable[WriterT[Const[String, *], ListWrapper[Int], *]]))
 
@@ -458,7 +458,8 @@ class WriterTSuite extends CatsSuite {
     Foldable[WriterT[Id, ListWrapper[Int], *]]
     Foldable[Writer[ListWrapper[Int], *]]
 
-    checkAll("WriterT[Id, ListWrapper[Int], *]", FoldableTests[WriterT[Id, ListWrapper[Int], *]].foldable[Int, Int])
+    checkAll("WriterT[Id, ListWrapper[Int], *]",
+             FoldableTests[WriterT[Id, ListWrapper[Int], *]].foldable[Int, Int, Int])
   }
 
   {
@@ -467,8 +468,10 @@ class WriterTSuite extends CatsSuite {
     Traverse[Const[String, *]]
     Traverse[WriterT[Const[String, *], ListWrapper[Int], *]]
 
-    checkAll("WriterT[Const[String, *], ListWrapper[Int], *]",
-             TraverseTests[WriterT[Const[String, *], ListWrapper[Int], *]].traverse[Int, Int, Int, Int, Option, Option])
+    checkAll(
+      "WriterT[Const[String, *], ListWrapper[Int], *]",
+      TraverseTests[WriterT[Const[String, *], ListWrapper[Int], *]].traverse[Int, Int, Int, Int, Int, Option, Option]
+    )
     checkAll("Traverse[WriterT[Const[String, *], ListWrapper[Int], *]]",
              SerializableTests.serializable(Traverse[WriterT[Const[String, *], ListWrapper[Int], *]]))
 
@@ -477,7 +480,7 @@ class WriterTSuite extends CatsSuite {
     Traverse[Writer[ListWrapper[Int], *]]
 
     checkAll("WriterT[Id, ListWrapper[Int], *]",
-             TraverseTests[WriterT[Id, ListWrapper[Int], *]].traverse[Int, Int, Int, Int, Option, Option])
+             TraverseTests[WriterT[Id, ListWrapper[Int], *]].traverse[Int, Int, Int, Int, Int, Option, Option])
   }
 
   {
