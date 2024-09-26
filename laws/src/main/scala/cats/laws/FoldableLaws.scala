@@ -2,6 +2,7 @@ package cats
 package laws
 
 import cats.implicits._
+import cats.kernel.CommutativeSemigroup
 
 import scala.collection.mutable
 
@@ -76,6 +77,14 @@ trait FoldableLaws[F[_]] extends UnorderedFoldableLaws[F] {
     val g: (A, Eval[A]) => Eval[A] = (a, ea) => ea.map(f(a, _))
     F.reduceRightOption(fa)(g).value <-> F.reduceRightToOption(fa)(identity)(g).value
   }
+
+  /**
+   * `reduceLeftOption` consistent with `unorderedReduceToOption` on CommutativeSemigroups
+   */
+  def reduceLeftOptionConsistentWithUnorderedReduceOption[A](
+    fa: F[A]
+  )(implicit A: CommutativeSemigroup[A]): IsEq[Option[A]] =
+    F.reduceLeftOption(fa)(A.combine) <-> F.unorderedReduceOption(fa)
 
   def getRef[A](fa: F[A], idx: Long): IsEq[Option[A]] =
     F.get(fa)(idx) <-> (if (idx < 0L) None
