@@ -21,7 +21,7 @@
 
 package cats
 
-import cats.kernel.CommutativeMonoid
+import cats.kernel.{CommutativeMonoid, CommutativeSemigroup}
 import scala.collection.immutable.{Queue, Seq, SortedMap, SortedSet}
 import scala.util.Try
 
@@ -117,6 +117,30 @@ trait UnorderedFoldable[F[_]] extends Serializable {
 
   def count[A](fa: F[A])(p: A => Boolean): Long =
     unorderedFoldMap(fa)(a => if (p(a)) 1L else 0L)
+
+  /**
+   * Reduces the elements of `fa` using the given `CommutativeSemigroup[A]`.
+   * Returns `None` if `fa` is empty, otherwise returns `Some` of the combined result.
+   *
+   * Because this is `UnorderedFoldable`, the operation requires `CommutativeSemigroup`
+   * (not merely `Semigroup`) to ensure correctness regardless of traversal order.
+   *
+   * Example:
+   * {{{
+   * scala> import cats.syntax.all._
+   *
+   * scala> Set(1, 2, 3).unorderedReduceOption
+   * res0: Option[Int] = Some(6)
+   *
+   * scala> Set.empty[Int].unorderedReduceOption
+   * res1: Option[Int] = None
+   * }}}
+   */
+  def unorderedReduceOption[A](fa: F[A])(implicit A: CommutativeSemigroup[A]): Option[A] = {
+    implicit val optionMonoid: CommutativeMonoid[Option[A]] =
+      cats.kernel.instances.option.catsKernelStdCommutativeMonoidForOption[A]
+    unorderedFoldMap(fa)(a => Some(a): Option[A])
+  }
 }
 
 private[cats] trait UnorderedFoldableLowPriority {
@@ -200,6 +224,8 @@ object UnorderedFoldable
     def exists(p: A => Boolean): Boolean = typeClassInstance.exists[A](self)(p)
     def forall(p: A => Boolean): Boolean = typeClassInstance.forall[A](self)(p)
     def size: Long = typeClassInstance.size[A](self)
+    def unorderedReduceOption(implicit ev$1: CommutativeSemigroup[A]): Option[A] =
+      typeClassInstance.unorderedReduceOption[A](self)
   }
   trait AllOps[F[_], A] extends Ops[F, A]
   trait ToUnorderedFoldableOps extends Serializable {

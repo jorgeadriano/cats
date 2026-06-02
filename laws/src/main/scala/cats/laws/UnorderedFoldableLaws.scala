@@ -80,6 +80,9 @@ trait UnorderedFoldableLaws[F[_]] {
 
   def containsAllElementsFromItself[A](fa: F[A])(implicit eq: Eq[A]): Boolean =
     F.forall(fa)(a => F.contains_(fa, a))
+
+  def unorderedReduceOptionConsistentWithUnorderedFold[A: CommutativeMonoid](fa: F[A]): IsEq[Option[A]] =
+    F.unorderedReduceOption(fa) <-> (if (F.isEmpty(fa)) None else Some(F.unorderedFold(fa)))
 }
 
 object UnorderedFoldableLaws {

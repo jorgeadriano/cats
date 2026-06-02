@@ -76,6 +76,26 @@ sealed abstract class UnorderedFoldableSuite[F[_]](name: String)(implicit
     }
   }
 
+  test(s"UnorderedFoldable[$name].unorderedReduceOption returns None iff empty") {
+    forAll { (fa: F[Int]) =>
+      if (instance.isEmpty(fa)) {
+        assert(instance.unorderedReduceOption(fa) === None)
+      } else {
+        assert(instance.unorderedReduceOption(fa).isDefined)
+      }
+    }
+  }
+
+  test(s"UnorderedFoldable[$name].unorderedReduceOption syntax works via cats.syntax.unorderedFoldable") {
+    forAll { (fa: F[Int]) =>
+      implicit val F: UnorderedFoldable[F] = instance
+      // syntax available via cats.syntax.unorderedFoldable.*
+      val viaSyntax: Option[Int] = fa.unorderedReduceOption
+      val viaInstance: Option[Int] = instance.unorderedReduceOption(fa)
+      assert(viaSyntax === viaInstance)
+    }
+  }
+
   checkAll("F[Int]", UnorderedFoldableTests[F](using instance).unorderedFoldable[Int, Int])
 }
 
@@ -83,6 +103,18 @@ final class UnorderedFoldableSetSuite extends UnorderedFoldableSuite[Set]("set")
   def iterator[T](set: Set[T]): Iterator[T] = set.iterator
   def specializedUnorderedFoldMap[A, B: CommutativeMonoid](fa: Set[A])(f: A => B): B =
     UnorderedFoldable[Set].unorderedFoldMap(fa)(f)
+
+  test("Set.unorderedReduceOption is None for empty Set") {
+    assert(UnorderedFoldable[Set].unorderedReduceOption(Set.empty[Int]) === None)
+  }
+
+  test("Set.unorderedReduceOption combines elements for non-empty Set") {
+    assert(UnorderedFoldable[Set].unorderedReduceOption(Set(1, 2, 3)) === Some(6))
+  }
+
+  test("Set.unorderedReduceOption returns Some(single) for singleton Set") {
+    assert(UnorderedFoldable[Set].unorderedReduceOption(Set(42)) === Some(42))
+  }
 }
 
 final class UnorderedFoldableMapSuite extends UnorderedFoldableSuite[Map[String, *]]("map") {

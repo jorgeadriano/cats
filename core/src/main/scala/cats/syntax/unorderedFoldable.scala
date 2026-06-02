@@ -22,6 +22,8 @@
 package cats
 package syntax
 
+import cats.kernel.CommutativeSemigroup
+
 trait UnorderedFoldableSyntax extends UnorderedFoldable.ToUnorderedFoldableOps {
   implicit final def catsSyntaxUnorderedFoldableOps[F[_]: UnorderedFoldable, A](fa: F[A]): UnorderedFoldableOps[F, A] =
     new UnorderedFoldableOps[F, A](fa)
@@ -66,4 +68,21 @@ final class UnorderedFoldableOps[F[_], A](private val fa: F[A]) extends AnyVal {
    */
   def count(p: A => Boolean)(implicit F: UnorderedFoldable[F]): Long =
     F.count(fa)(p)
+
+  /**
+   * Reduces the elements using `CommutativeSemigroup[A]`, returning `None` if empty.
+   *
+   * Example:
+   * {{{
+   * scala> import cats.syntax.all._
+   *
+   * scala> Set(1, 2, 3).unorderedReduceOption
+   * res0: Option[Int] = Some(6)
+   *
+   * scala> Set.empty[Int].unorderedReduceOption
+   * res1: Option[Int] = None
+   * }}}
+   */
+  def unorderedReduceOption(implicit A: CommutativeSemigroup[A], F: UnorderedFoldable[F]): Option[A] =
+    F.unorderedReduceOption(fa)
 }

@@ -40,7 +40,9 @@ trait UnorderedFoldableTests[F[_]] extends Laws {
     B: CommutativeMonoid[B],
     EqFA: Eq[A],
     EqFB: Eq[B]
-  ): RuleSet =
+  ): RuleSet = {
+    implicit val eqOptionA: Eq[Option[A]] =
+      cats.kernel.instances.option.catsKernelStdEqForOption[A]
     new DefaultRuleSet(
       name = "unorderedFoldable",
       parent = None,
@@ -53,8 +55,12 @@ trait UnorderedFoldableTests[F[_]] extends Laws {
       "forall is lazy" -> forAll(laws.forallLazy[A] _),
       "contains consistent with exists" -> forAll(laws.containsConsistentWithExists[A] _),
       "contains consistent with forall" -> forAll(laws.containsConsistentWithForall[A] _),
-      "contains all elements from itself" -> forAll(laws.containsAllElementsFromItself[A] _)
+      "contains all elements from itself" -> forAll(laws.containsAllElementsFromItself[A] _),
+      "unorderedReduceOption consistent with unorderedFold" -> forAll(
+        laws.unorderedReduceOptionConsistentWithUnorderedFold[A] _
+      )
     )
+  }
 }
 
 object UnorderedFoldableTests {
