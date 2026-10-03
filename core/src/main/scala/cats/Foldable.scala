@@ -1102,7 +1102,7 @@ object Foldable {
     type TypeClassType <: Foldable[F]
   }
   // Give the Foldable conversion priority over the inherited UnorderedFoldable conversion.
-  trait ToFoldableOps extends UnorderedFoldable.ToUnorderedFoldableOps {
+  trait ToFoldableOps extends Serializable {
     implicit def toFoldableOps[F[_], A](target: F[A])(implicit tc: Foldable[F]): Ops[F, A] {
       type TypeClassType = Foldable[F]
     } =
