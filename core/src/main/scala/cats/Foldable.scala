@@ -1027,7 +1027,7 @@ object Foldable {
         val typeClassInstance: TypeClassType = tc
       }
   }
-  trait Ops[F[_], A] extends UnorderedFoldable.Ops[F, A] {
+  trait Ops[F[_], A] extends Serializable {
     type TypeClassType <: Foldable[F]
     def self: F[A]
     val typeClassInstance: TypeClassType
